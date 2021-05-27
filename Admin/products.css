@@ -1,0 +1,50 @@
+.products{
+    float: right;
+    display: inline-block;
+    width: 74%;
+    height: 500px;
+    margin: 20px 0 0 0;
+    overflow-y: scroll;
+    
+}
+table{
+    border-collapse: collapse;
+}
+.title{
+    width: 100%;
+    
+}
+.title td{
+    padding: 0 20px;
+    text-align: center;
+    border: 2px solid gray;
+}
+.stt{
+    width: 5%;
+}
+.name{
+    width: 20%;
+}
+.cate{
+    width: 10%;
+}
+.des{
+    width: 40%;
+}
+.price{
+    width: 10%;
+}
+.action{
+    width: 15%;
+}
+.item{
+    text-align: center;
+    font-size: 16px;
+}
+.item td{
+    padding: 15px 10px;
+    border: 2px solid gray;
+}
+.item .btn{
+    color: honeydew;
+}

@@ -1,0 +1,14 @@
+.breadcrumbs{
+   float: left;
+}
+.breadcrum_item{
+    display: inline-block;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.breadcrum_item:not(:last-of-type)::after{
+    content: '/';
+    margin: 0 5px;
+    color: #ccc;
+}

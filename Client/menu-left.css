@@ -1,0 +1,28 @@
+
+.menu{
+    float: left;
+    width: 24%;
+    min-height: 200px;
+    border: 1px solid #868282;
+    border-radius: 5px;
+}
+.menu ul{
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.menu li{
+    list-style-type: none;
+    padding: 15px 0;
+    border-bottom: 1px solid #cac8c8;
+}
+
+.menu a{
+    padding-left: 10%;
+    font-size: 16px;
+    color: #000;
+}
+.menu li:hover{
+    background-color: rgb(253, 149, 112);
+    padding-left: 3px;
+}
