@@ -3,9 +3,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 exports.register = async (req, res, next) => {
   try {
-    const avatar = req.file.path;
-    const body = JSON.parse(req.body.data);
-    const { username, password, email } = body;
+    const avatar = "public\\image\\avt.jpg";
+    // const body = JSON.parse(req.body.data);
+    const { username, password, email } = req.body;
     const data = await User.create({ avatar, username, password, email });
     const token = jwt.sign({ userId: data._id }, process.env.SECRET_KEY);
     res.status(200).json({
@@ -43,6 +43,27 @@ exports.login = async (req, res, next) => {
     }
   } catch (error) {
     next(err);
+  }
+};
+
+exports.updateProfile = async (req, res, next) => {
+  try {
+    const avatar = req.file.path;
+    const body = JSON.parse(req.body.data);
+    const { username, email, password } = body;
+    const { userId } = req;
+    const userUpdate = await User.findByIdAndUpdate(userId, {
+      avatar,
+      username,
+      password,
+    });
+    res.status(200).json({
+      status: "success",
+      data: userUpdate,
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
   }
 };
 
