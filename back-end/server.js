@@ -22,7 +22,14 @@ app.use("/uploads", express.static("uploads"));
 
 //Routes
 const User = require("./routes/User/authRouter");
-app.use("/", User);
+app.use("/api/v1/auth", User);
 //Event handding
+app.all("*", (req, res, next) => {
+  const err = new Error("The route is not correct");
+  err.statusCode = 403;
+  next(err);
+});
 
+const { errorHandler } = require("./middlewares/errorHandler");
+app.use(errorHandler);
 app.listen(PORT, () => console.log(`App running port ${PORT}`));

@@ -1,4 +1,3 @@
-const { strict } = require("assert");
 const multer = require("multer");
 const path = require("path");
 
