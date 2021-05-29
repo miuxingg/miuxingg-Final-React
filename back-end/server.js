@@ -20,9 +20,18 @@ connect();
 
 app.use("/uploads", express.static("uploads"));
 
-//Routes
+//Routes account
 const User = require("./routes/User/authRouter");
 app.use("/api/v1/auth", User);
+
+//Routes category
+const Category = require("./routes/Products/categoryRouter");
+app.use("/api/v1/category", Category);
+
+//Routes Products
+const Product = require("./routes/Products/productRouter");
+app.use("/api/v1/product", Product);
+
 //Event handding
 app.all("*", (req, res, next) => {
   const err = new Error("The route is not correct");

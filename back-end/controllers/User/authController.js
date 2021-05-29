@@ -1,6 +1,8 @@
 const User = require("../../models/User/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const fs = require("fs");
+
 exports.register = async (req, res, next) => {
   try {
     const avatar = "public\\image\\avt.jpg";
@@ -37,7 +39,11 @@ exports.login = async (req, res, next) => {
         );
         res.status(200).json({
           status: "success",
-          data: { token, username: userAccout.username },
+          data: {
+            token,
+            username: userAccout.username,
+            isAdmin: userAccout.isAdmin,
+          },
         });
       }
     }
@@ -50,13 +56,25 @@ exports.updateProfile = async (req, res, next) => {
   try {
     const avatar = req.file.path;
     const body = JSON.parse(req.body.data);
-    const { username, email, password } = body;
+    let { username, email, password } = body;
     const { userId } = req;
-    const userUpdate = await User.findByIdAndUpdate(userId, {
-      avatar,
-      username,
-      password,
-    });
+    const userUpdate = await User.findByIdAndUpdate(
+      userId,
+      {
+        avatar,
+        username,
+        password,
+      },
+      {
+        // new: true,
+        runValidators: true,
+      }
+    );
+    if (userUpdate.avatar !== "Images\\UserImage\\1622197730280.JPG") {
+      fs.unlink(`${userUpdate.avatar}`, function (err) {
+        if (err) next(err);
+      });
+    }
     res.status(200).json({
       status: "success",
       data: userUpdate,
@@ -76,6 +94,8 @@ exports.currentUser = async (req, res, next) => {
       res.status(200).json({
         username,
         email,
+        password,
+        avatar,
       });
     }
   } catch (error) {

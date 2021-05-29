@@ -7,7 +7,7 @@ const {
   updateProfile,
 } = require("../../controllers/User/authController");
 const { verifyToken } = require("../../middlewares/verifyToken");
-const uploadImage = require("../../middlewares/uploadImage");
+const uploadImage = require("../../middlewares/uploadAvtImage");
 const validateImage = require("../../middlewares/validateImage");
 Route.route("/register").post(register);
 Route.route("/login").post(login);

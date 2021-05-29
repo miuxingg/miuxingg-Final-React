@@ -17,11 +17,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: [true, "Password must be require"],
+      minlength: [6, "Password be at 6 character"],
     },
     avatar: {
       type: String,
       trim: true,
       required: [true, "Avatar must be require"],
+    },
+    isAdmin: {
+      type: Boolean,
+      trim: true,
+      default: false,
     },
   },
   { timestamps: true }

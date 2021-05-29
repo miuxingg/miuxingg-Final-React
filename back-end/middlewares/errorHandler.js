@@ -9,6 +9,12 @@ exports.errorHandler = (err, req, res, next) => {
     }
   }
 
+  //ID sai
+  if (err.kind === "ObjectId") {
+    err.statusCode = 404;
+    err.message = `The ${req.originalUrl} is ot found because of wrong ID`;
+  }
+
   //validate
   if (err.errors) {
     err.statusCode = 400;
