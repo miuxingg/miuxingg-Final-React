@@ -58,27 +58,47 @@ exports.updateProfile = async (req, res, next) => {
     const body = JSON.parse(req.body.data);
     let { username, email, password } = body;
     const { userId } = req;
-    const userUpdate = await User.findByIdAndUpdate(
-      userId,
-      {
-        avatar,
-        username,
-        password,
-      },
-      {
-        // new: true,
-        runValidators: true,
+    const userUpdate = await User.findOne({ _id: userId }, function (err, doc) {
+      if (err) next(err);
+      if (doc.avatar !== "public\\image\\avt.jpg") {
+        fs.unlink(`${doc.avatar}`, function (err) {
+          if (err) next(err);
+        });
       }
-    );
-    if (userUpdate.avatar !== "Images\\UserImage\\1622197730280.JPG") {
-      fs.unlink(`${userUpdate.avatar}`, function (err) {
+      doc.username = username;
+      doc.email = email;
+      doc.password = password;
+      doc.avatar = avatar;
+      doc.save(function (err, returnData) {
         if (err) next(err);
+        res.status(200).json({
+          status: "success",
+          data: returnData,
+        });
       });
-    }
-    res.status(200).json({
-      status: "success",
-      data: userUpdate,
     });
+
+    // const userUpdate = await User.findByIdAndUpdate(
+    //   userId,
+    //   {
+    //     avatar,
+    //     username,
+    //     password,
+    //   },
+    //   {
+    //     // new: true,
+    //     runValidators: true,
+    //   }
+    // );
+    // if (userUpdate.avatar !== "Images\\UserImage\\1622197730280.JPG") {
+    //   fs.unlink(`${userUpdate.avatar}`, function (err) {
+    //     if (err) next(err);
+    //   });
+    // }
+    // res.status(200).json({
+    //   status: "success",
+    //   data: userUpdate,
+    // });
   } catch (error) {
     console.log(error);
     next(error);

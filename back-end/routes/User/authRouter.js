@@ -13,7 +13,7 @@ Route.route("/register").post(register);
 Route.route("/login").post(login);
 Route.route("/currentUser").get(verifyToken, currentUser);
 Route.route("/updateProfile").put(
-  uploadImage,
+  uploadImage.single("avtImage"),
   validateImage,
   verifyToken,
   updateProfile

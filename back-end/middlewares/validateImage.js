@@ -32,7 +32,7 @@ module.exports = (req, res, next) => {
 
   if (!name || !image) {
     return res.status(400).json({
-      status: "All file is mus require",
+      status: "All file is must require",
     });
   }
 

@@ -19,4 +19,4 @@ let upload = multer({
   fileFilter: filterFile,
 });
 
-module.exports = upload.single("avtImage");
+module.exports = upload;
