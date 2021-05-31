@@ -13,7 +13,7 @@ exports.createCategory = async (req, res, next) => {
 
 exports.getAllCategory = async (req, res, next) => {
   try {
-    const data = await Cate.find({});
+    const data = await Cate.find({}).select("cateName");
     res.status(200).json({
       status: "success",
       data: data,

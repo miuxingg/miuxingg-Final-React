@@ -3,8 +3,10 @@ const Cate = require("../../models/Products/category");
 const fs = require("fs");
 exports.createProduct = async (req, res, next) => {
   try {
+    console.log("run");
     const avatar = req.file.path;
     const body = JSON.parse(req.body.data);
+
     const { name, description, price, categoryId } = body;
     const cate = await Cate.findById(categoryId);
     if (typeof price !== "number") {
@@ -24,6 +26,9 @@ exports.createProduct = async (req, res, next) => {
       data: data,
     });
   } catch (error) {
+    fs.unlink(`${req.file.path}`, function (err) {
+      if (err) next(err);
+    });
     next(error);
   }
 };
@@ -31,13 +36,16 @@ exports.getProduct = (req, res, next) => {};
 exports.getProductByCate = async (req, res, next) => {
   try {
     const { idCate } = req.params;
-    const data = await Prod.find({ categoryId: idCate });
+    const data = await Prod.find({ categoryId: idCate }).populate("categoryId");
     res.status(200).json({
       status: "success",
       length: data.length,
       data,
     });
   } catch (error) {
+    fs.unlink(`${req.file.path}`, function (err) {
+      if (err) next(err);
+    });
     next(error);
   }
 };

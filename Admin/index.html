@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="header.css">
     <link rel="stylesheet" type="text/css" href="products.css">
     <link rel="stylesheet" type="text/css" href="category.css">
+    <link rel="stylesheet" type="text/css" href="addprod.css">
 <body>
     <div class="header">
         <div class="container">
@@ -39,7 +40,7 @@
             <li>User</li>
         </ul>
     </div>
-    <div class="products">
+    <!-- <div class="products">
         <table>
             <thead class="title">
                 <td class="stt">STT</td>
@@ -64,6 +65,42 @@
 
             </tbody>
         </table>
+    </div> -->
+
+    <div class="products">
+        <h1 class="center">Add new product</h1>
+        <div class="product-add">
+            <div class="row-add">
+                <h3 class="title-add">Product Name</h3>
+                <input type="text" class="inp-add-product">
+            </div>
+            <div class="row-add">
+                <h3 class="title-add">Price</h3>
+                <input type="text" class="inp-add-product" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+            </div>
+            <div class="row-add">
+                <h3 class="title-add">Description</h3>
+                <textarea class="inp-add-product inp-des"></textarea>
+            </div>
+            <div class="row-add">
+                <h3 class="title-add">Category</h3>
+                <select class="inp-add-product">
+                    <option>Smart phone</option>
+                    <option>Laptop</option>
+                    <option>Macbook</option>
+                    <option>Headphone</option>
+                </select>
+            </div>
+            <div class="row-add">
+                <h3 class="title-add">Avatar</h3>
+                <input type="file" >
+            </div>
+            <div class="btn-add">
+                <button type="submit" class="btn cl-green">Submit</button>
+                <button type="submit" class="btn cl-red">Cancel</button>
+                
+            </div>
+        </div>
     </div>
 </body>
 </html>

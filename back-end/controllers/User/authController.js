@@ -100,7 +100,9 @@ exports.updateProfile = async (req, res, next) => {
     //   data: userUpdate,
     // });
   } catch (error) {
-    console.log(error);
+    fs.unlink(`${req.file.path}`, function (err) {
+      if (err) next(err);
+    });
     next(error);
   }
 };
@@ -108,9 +110,10 @@ exports.updateProfile = async (req, res, next) => {
 exports.currentUser = async (req, res, next) => {
   try {
     const { userId } = req;
-    console.log(userId);
     if (userId) {
-      const { username, email } = await User.findOne({ _id: userId });
+      const { username, email, password, avatar } = await User.findOne({
+        _id: userId,
+      });
       res.status(200).json({
         username,
         email,

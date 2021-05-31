@@ -4,9 +4,9 @@ module.exports = (req, res, next) => {
   // valid req.body or req.file not get undefined
   if (typeof req.file === "undefined" || typeof req.body === "undefined") {
     // error
-    return res.status(400).json({
-      status: "Dont found image",
-    });
+    const err = new Error("Dont found image");
+    err.statusCode = 400;
+    return next(err);
   }
 
   let name = req.file.originalname;
@@ -17,23 +17,23 @@ module.exports = (req, res, next) => {
     !req.file.mimetype.includes("jpg")
   ) {
     fs.unlinkSync(image);
-    return res.status(400).json({
-      errors: "file not support",
-    });
+    const err = new Error("file not support");
+    err.statusCode = 400;
+    next(err);
   }
 
   //check file size max = 3 megabyte (2 megabyte == 1024 * 1024 * 2)
   if (req.file.size > 1024 * 1024 * 30) {
     fs.unlinkSync(image);
-    return res.status(400).json({
-      status: "File size is too large",
-    });
+    const err = new Error("File size is too large");
+    err.statusCode = 400;
+    next(err);
   }
 
   if (!name || !image) {
-    return res.status(400).json({
-      status: "All file is must require",
-    });
+    const err = new Error("All file is must require");
+    err.statusCode = 400;
+    next(err);
   }
 
   next();
